@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
+// возвращает основыне страницы. Также добавляет и удаляет блюда
 @Controller
 @RequiredArgsConstructor
 public class productController {
@@ -29,8 +33,8 @@ public class productController {
     }
 
     @PostMapping("/product/create")
-    public String createProduct(Product product) {
-        productService.saveProduct(product);
+    public String createProduct(@RequestParam MultipartFile file, Product product) throws IOException {
+        productService.saveProduct(product, file);
         return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
     }
 

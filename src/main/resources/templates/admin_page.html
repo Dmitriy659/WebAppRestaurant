@@ -5,17 +5,20 @@
     <title>Админка</title>
 </head>
 <body>
-    <h1>Добро пожаловать в админку вашего прекрасного сайта, Шеф!</h1>
+    <h1>Добро пожаловать в админку вашего прекрасного сайта, Сэр!</h1>
     <hr>
-    <a href="/">Желаете перейти на ваш великолепный сайт?</a>
+    <a href="/">Желаете перейти на ваш великолепный сайт, Сэр?</a>
     <form action="/product/create" method="post" enctype="multipart/form-data">
         <label for="name" >Название товара</label>
         <input type="text" name="name" id="name"><br><br>
 
+        <label for="file" >Картинка</label>
+        <input type="file" name="file" id="file"><br><br>
+
         <label for="desc" >Описание товара</label>
         <input type="text" name="description" id="desc"><br><br>
 
-        <label for="price" >Описание товара</label>
+        <label for="price" >Цена товара</label>
         <input type="number" name="price" id="price"><br><br>
 
         <input type="submit" value="Добавление товара">
@@ -29,6 +32,9 @@
         <div th:each="el: ${products}" >
             <div>
                 <b th:text="${el.getName()}"></b>
+                <th:block th:if="${el.getImage() != null}">
+                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка"/>
+                </th:block>
                 <p th:text="${el.getPrice()}"></p>
                 <p th:text="${el.getDescription()}"></p>
                 <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">

@@ -14,6 +14,9 @@
         </div>
         <div th:each="el: ${products}" >
             <div>
+                <th:block th:if="${el.getImage() != null}">
+                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка"/>
+                </th:block>
                 <b th:text="${el.getName()}"></b>
                 <p th:text="${el.getPrice()}"></p>
                 <p th:text="${el.getDescription()}"></p>

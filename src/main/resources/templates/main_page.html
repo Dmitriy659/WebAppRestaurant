@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ресторан</title>
+</head>
+<body>
+    <h1>Ресторан высшего уровня</h1>
+    <hr>
+    <h2>Наше меню</h2>
+    <div>
+        <div th:if="${products.empty}">
+            <p>Блюд нет</p>
+        </div>
+        <div th:each="el: ${products}" >
+            <div>
+                <b th:text="${el.getName()}"></b>
+                <p th:text="${el.getPrice()}"></p>
+                <p th:text="${el.getDescription()}"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

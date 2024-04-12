@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админка</title>
+</head>
+<body>
+    <h1>Добро пожаловать в админку вашего прекрасного сайта, Шеф!</h1>
+    <hr>
+    <a href="/">Желаете перейти на ваш великолепный сайт?</a>
+    <form action="/product/create" method="post" enctype="multipart/form-data">
+        <label for="name" >Название товара</label>
+        <input type="text" name="name" id="name"><br><br>
+
+        <label for="desc" >Описание товара</label>
+        <input type="text" name="description" id="desc"><br><br>
+
+        <label for="price" >Описание товара</label>
+        <input type="number" name="price" id="price"><br><br>
+
+        <input type="submit" value="Добавление товара">
+    </form>
+
+    <h2>Посмотрите на наши прекрасные блюда</h2>
+    <div>
+        <div th:if="${products.empty}">
+            <p>Блюд нет</p>
+        </div>
+        <div th:each="el: ${products}" >
+            <div>
+                <b th:text="${el.getName()}"></b>
+                <p th:text="${el.getPrice()}"></p>
+                <p th:text="${el.getDescription()}"></p>
+                <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
+                    <input type="submit" value="Удалить товар">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

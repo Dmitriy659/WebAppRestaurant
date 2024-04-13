@@ -9,16 +9,29 @@
     <hr>
     <h2>Наше меню</h2>
     <div>
+        <form action="/" method="get">
+            <label for="category">Категория</label>
+            <select name="category" id="category">
+                <option value="Все" selected>Все блюда</option>
+                <option value="Напитки">Напитки</option>
+                <option value="Завтраки">Завтраки</option>
+                <option value="Супы">Супы</option>
+                <option value="Горячие блюда">Горячие блюда</option>
+                <option value="Салаты">Салаты</option>
+                <option value="Десерты">Десерты</option>
+                <input type="submit" value="выбрать">
+            </select><br>
+        </form>
         <div th:if="${products.empty}">
             <p>Блюд нет</p>
         </div>
         <div th:each="el: ${products}" >
             <div>
                 <th:block th:if="${el.getImage() != null}">
-                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка"/>
+                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="200px" width="200px"/>
                 </th:block>
-                <b th:text="${el.getName()}"></b>
-                <p th:text="${el.getPrice()}"></p>
+                <p><b th:text="${el.getName()}"></b></p>
+                <p th:text="${el.getPrice()} + ' руб'"></p>
                 <p th:text="${el.getDescription()}"></p>
             </div>
         </div>

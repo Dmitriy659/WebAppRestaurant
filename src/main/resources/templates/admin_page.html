@@ -21,6 +21,16 @@
         <label for="price" >Цена товара</label>
         <input type="number" name="price" id="price"><br><br>
 
+        <label for="category">Категория</label>
+        <select name="category" id="category">
+            <option value="Напитки">Напитки</option>
+            <option value="Завтраки">Завтраки</option>
+            <option value="Супы">Супы</option>
+            <option value="Горячие блюда" selected>Горячие блюда</option>
+            <option value="Салаты">Салаты</option>
+            <option value="Десерты">Десерты</option>
+        </select><br><br>
+
         <input type="submit" value="Добавление товара">
     </form>
 
@@ -31,11 +41,12 @@
         </div>
         <div th:each="el: ${products}" >
             <div>
-                <b th:text="${el.getName()}"></b>
                 <th:block th:if="${el.getImage() != null}">
-                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка"/>
+                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="200px" width="200px"/>
                 </th:block>
-                <p th:text="${el.getPrice()}"></p>
+                <p><b th:text="${el.getName()}"></b></p>
+                <p th:text="${el.getPrice()} + ' руб'"></p>
+                <p th:text="${el.getCategory()}"></p>
                 <p th:text="${el.getDescription()}"></p>
                 <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
                     <input type="submit" value="Удалить товар">

@@ -27,8 +27,9 @@ public class productController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String products(Model model) {
-        model.addAttribute("products", productService.allProducts());
+    public String products(@RequestParam(required = false, defaultValue = "Все") String category,
+                           Model model) {
+        model.addAttribute("products", productService.allProducts(category));
         return "main_page";
     }
 
@@ -48,14 +49,13 @@ public class productController {
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
                         Model model) {
-        System.out.println(login + " " + password);
         if (login != null && password != null) {
             if (login.equals(admin_login) && password.equals(admin_password)) {
-                model.addAttribute("products", productService.allProducts());
+                model.addAttribute("products", productService.allProducts("Все"));
                 return "admin_page";
             }
         }
-        model.addAttribute("products", productService.allProducts());
+        model.addAttribute("products", productService.allProducts("Все"));
         return "main_page";
     }
 }

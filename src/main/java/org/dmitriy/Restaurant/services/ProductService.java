@@ -17,7 +17,10 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> allProducts() {
+    public List<Product> allProducts(String category) {
+        if (!category.equals("Все")) {
+            return productRepository.findByCategory(category);
+        }
         return productRepository.findAll();
     }
 

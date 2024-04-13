@@ -2,6 +2,7 @@ package org.dmitriy.Restaurant.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.dmitriy.Restaurant.models.Product;
+import org.dmitriy.Restaurant.models.User;
 import org.dmitriy.Restaurant.services.ProductService;
 import org.dmitriy.Restaurant.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,10 +50,22 @@ public class productController {
         return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
     }
 
+    @GetMapping("/profile/{id}")
+    public String getProfile(@PathVariable Long id, Model model, Principal principal) {
+        User user = userService.getUserByPrincipal(principal);
+        if (id.equals(user.getId())) {
+            model.addAttribute("user", user);
+            return "profile";
+        }
+        model.addAttribute("products", productService.allProducts("Все"));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "main_page";
+    }
+
 //    http://localhost:8080/admin?login=admin&password=admin
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
-                        Model model) {
+                        Model model, Principal principal) {
         if (login != null && password != null) {
             if (login.equals(admin_login) && password.equals(admin_password)) {
                 model.addAttribute("products", productService.allProducts("Все"));
@@ -60,6 +73,7 @@ public class productController {
             }
         }
         model.addAttribute("products", productService.allProducts("Все"));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "main_page";
     }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+</head>
+<body>
+    <p th:text="${user.getName()}"></p>
+    <p th:text="${user.getSurName()}"></p>
+    <p th:text="${user.getEmail()}"></p>
+    <p th:text="${user.getPhoneNumber()}"></p>
+</body>
+</html>

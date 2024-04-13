@@ -8,6 +8,8 @@ import org.dmitriy.Restaurant.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -24,5 +26,12 @@ public class UserService {
         userRepository.save(user);
         log.info("Saving new user with email: " + user.getEmail());
         return true;
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) {
+            return null;
+        }
+        return userRepository.findByEmail(principal.getName());
     }
 }

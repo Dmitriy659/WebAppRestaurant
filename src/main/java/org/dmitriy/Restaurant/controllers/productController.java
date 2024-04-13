@@ -3,6 +3,7 @@ package org.dmitriy.Restaurant.controllers;
 import lombok.RequiredArgsConstructor;
 import org.dmitriy.Restaurant.models.Product;
 import org.dmitriy.Restaurant.services.ProductService;
+import org.dmitriy.Restaurant.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 // возвращает основыне страницы. Также добавляет и удаляет блюда
 @Controller
@@ -25,11 +27,13 @@ public class productController {
     private String admin_password;
 
     private final ProductService productService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String products(@RequestParam(required = false, defaultValue = "Все") String category,
-                           Model model) {
+                           Model model, Principal principal) {
         model.addAttribute("products", productService.allProducts(category));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "main_page";
     }
 

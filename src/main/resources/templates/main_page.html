@@ -7,6 +7,11 @@
 <body>
     <h1>Ресторан высшего уровня</h1>
     <hr>
+    <a th:href="@{/login}" th:text="Войти"/>
+    <form th:action="@{/logout}" th:method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <input type="submit" value="Выйти"/>
+    </form>
     <h2>Наше меню</h2>
     <div>
         <form action="/" method="get">

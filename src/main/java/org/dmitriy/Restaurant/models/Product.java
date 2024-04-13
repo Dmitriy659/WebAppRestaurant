@@ -22,8 +22,6 @@ public class Product {
     private String category;
     private int price;
 
-    // добавить категорию
-
     @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "product") // у одного товара одна картинка
     private Image image;
 

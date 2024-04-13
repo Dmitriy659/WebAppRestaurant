@@ -20,7 +20,7 @@ import java.security.Principal;
 // возвращает основыне страницы. Также добавляет и удаляет блюда
 @Controller
 @RequiredArgsConstructor
-public class productController {
+public class MainController {
 
     @Value("${admin_page.login}")
     private String admin_login;
@@ -39,7 +39,7 @@ public class productController {
     }
 
     @PostMapping("/product/create")
-    public String createProduct(@RequestParam MultipartFile file, Product product) throws IOException {
+    public String createProduct(@RequestParam(required = false) MultipartFile file, Product product) throws IOException {
         productService.saveProduct(product, file);
         return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
     }
@@ -47,6 +47,12 @@ public class productController {
     @PostMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+        return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
+    }
+
+    @PostMapping("/product/edit/{id}")
+    public String editProduct(@PathVariable Long id, @RequestParam MultipartFile file, Product product) throws IOException {
+        productService.updateProduct(id, file, product);
         return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
     }
 
@@ -65,15 +71,13 @@ public class productController {
 //    http://localhost:8080/admin?login=admin&password=admin
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
-                        Model model, Principal principal) {
+                        Model model) {
         if (login != null && password != null) {
             if (login.equals(admin_login) && password.equals(admin_password)) {
                 model.addAttribute("products", productService.allProducts("Все"));
                 return "admin_page";
             }
         }
-        model.addAttribute("products", productService.allProducts("Все"));
-        model.addAttribute("user", userService.getUserByPrincipal(principal));
-        return "main_page";
+        return "error"; // возврат несуществующей страницы
     }
 }

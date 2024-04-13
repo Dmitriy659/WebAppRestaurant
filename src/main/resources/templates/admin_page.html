@@ -8,18 +8,18 @@
     <h1>Добро пожаловать в админку вашего прекрасного сайта, Сэр!</h1>
     <hr>
     <a href="/">Желаете перейти на ваш великолепный сайт, Сэр?</a>
-    <form action="/product/create" method="post" enctype="multipart/form-data">
+    <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
         <label for="name" >Название товара</label>
-        <input type="text" name="name" id="name"><br><br>
+        <input type="text" name="name" id="name" required><br><br>
 
         <label for="file" >Картинка</label>
-        <input type="file" name="file" id="file"><br><br>
+        <input type="file" name="file" id="file" required><br><br>
 
         <label for="desc" >Описание товара</label>
-        <input type="text" name="description" id="desc"><br><br>
+        <input type="text" name="description" id="desc" required><br><br>
 
         <label for="price" >Цена товара</label>
-        <input type="number" name="price" id="price"><br><br>
+        <input type="number" name="price" id="price" required><br><br>
 
         <label for="category">Категория</label>
         <select name="category" id="category">
@@ -41,16 +41,34 @@
         </div>
         <div th:each="el: ${products}" >
             <div>
-                <th:block th:if="${el.getImage() != null}">
-                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="200px" width="200px"/>
-                </th:block>
-                <p><b th:text="${el.getName()}"></b></p>
-                <p th:text="${el.getPrice()} + ' руб'"></p>
-                <p th:text="${el.getCategory()}"></p>
-                <p th:text="${el.getDescription()}"></p>
+                <form th:action="@{/product/edit/{id}(id=${el.getId()})}" method="post" enctype="multipart/form-data">
+                    <label for="name1" >Название товара</label>
+                    <input type="text" name="name" id="name1" th:value="${el.getName()}"><br><br>
+
+                    <label for="file1" >Картинка</label>
+                    <input type="file" name="file" id="file1"><br><br>
+
+                    <label for="desc1" >Описание товара</label>
+                    <input type="text" name="description" id="desc1" th:value="${el.getDescription()}"><br><br>
+
+                    <label for="price1" >Цена товара</label>
+                    <input type="number" name="price" id="price1" th:value="${el.getPrice()}"><br><br>
+
+                    <label for="category1">Категория</label>
+                    <select name="category" id="category1">
+                        <option value="Напитки" th:selected="${el.category == 'Напитки'}">Напитки</option>
+                        <option value="Завтраки" th:selected="${el.category == 'Завтраки'}">Завтраки</option>
+                        <option value="Супы" th:selected="${el.category == 'Супы'}">Супы</option>
+                        <option value="Горячие блюда" th:selected="${el.category == 'Горячие блюда'}">Горячие блюда</option>
+                        <option value="Салаты" th:selected="${el.category == 'Салаты'}">Салаты</option>
+                        <option value="Десерты" th:selected="${el.category == 'Десерты'}">Десерты</option>
+                    </select><br><br>
+                    <input type="submit" value="Изменить товар">
+                </form>
                 <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
                     <input type="submit" value="Удалить товар">
                 </form>
+                <hr>
             </div>
         </div>
     </div>

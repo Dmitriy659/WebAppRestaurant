@@ -11,7 +11,7 @@
         Имя пользователя: <input type="text" name="name" required><br><br>
         Фамилия пользователя: <input type="text" name="surName" required><br><br>
         Эл. почта: <input type="email" name="email" required><br><br>
-        Номер телефона: <input type="text" name="phoneNumber" required><br><br>
+        Номер телефона: <input type="tel" name="phoneNumber" required><br><br>
         Пароль: <input type="password" name="password" required><br><br>
         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <input type="submit" value="Зарегистрироваться"/>

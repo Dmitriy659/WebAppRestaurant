@@ -3,6 +3,7 @@ package org.dmitriy.Restaurant.configurations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +21,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/admin/**", "/images/**", "/registration") // страницы на которые можнозайти без регистрации
+                        .requestMatchers(HttpMethod.POST, "/product/create").permitAll()  // отдельное разрешение, надо будет убрать
+                        .requestMatchers("/", "/admin/**", "/images/**", "/registration", "/product/delete/**", "/product/edit/**") // страницы на которые можнозайти без регистрации
                         .permitAll().anyRequest().authenticated() ) .
                 formLogin((form) -> form
                         .loginPage("/login")

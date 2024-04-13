@@ -21,6 +21,6 @@ public class Image {
     @Column(columnDefinition = "bytea")  // это обязательно (меняет тип данных в бд)
     private byte[] bytes;
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER) // мы связываем продукт и фотографию. Если мы получим фотографию, то легко сможем получить и продукт. На один товар приходится много фотографий
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER) // мы связываем продукт и фотографию. Если мы получим фотографию, то легко сможем получить и продукт. На один товар приходится много фотографий
     private Product product;
 }

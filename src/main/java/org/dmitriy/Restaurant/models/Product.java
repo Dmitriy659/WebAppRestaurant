@@ -26,6 +26,7 @@ public class Product {
     private Image image;
 
     public void addImage(Image image) {
+        this.image = null;
         image.setProduct(this);
         this.image = image;
     }

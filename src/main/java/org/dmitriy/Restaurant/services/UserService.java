@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.dmitriy.Restaurant.models.User;
 import org.dmitriy.Restaurant.models.enums.Role;
 import org.dmitriy.Restaurant.repositories.UserRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

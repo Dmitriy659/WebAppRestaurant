@@ -9,5 +9,16 @@
     <p th:text="${user.getSurName()}"></p>
     <p th:text="${user.getEmail()}"></p>
     <p th:text="${user.getPhoneNumber()}"></p>
+
+    <p><a th:href="@{/}">На главную</a></p>
+
+    <a th:href="@{/reserve}" th:if="${user.getReservation() == null}">Забронировать стол</a>
+    <div th:if="${user.getReservation() != null}">
+        <p th:text="'Вы забронировали стол с номером ' + ${user.getReservation().getTableId()} +
+         ' на дату ' + ${date}"></p>
+        <form th:action="@{/reserve/delete}" method="post">
+            <input type="submit" value="отменить бронь">
+        </form>
+    </div>
 </body>
 </html>

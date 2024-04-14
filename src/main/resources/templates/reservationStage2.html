@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/reserve}" method="post">
+        <label for="tableId">Вы выбрали стол под номером</label>
+        <input type="number" name="tableId" id="tableId" th:value="${tableId}" readonly><br>
+
+        <label for="date">Выберите дату и время</label>
+        <select name="date" id="date">
+            <option th:each="el : ${freetime}" th:value="${el}" th:text="${el}"></option>
+        </select>
+        <input type="submit" value="Забронировать">
+    </form>
+    <a th:href="@{/reserve}">Назад</a>
+</body>
+</html>

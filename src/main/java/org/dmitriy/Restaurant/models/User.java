@@ -31,10 +31,22 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private Reservation reservation;
+
     private LocalDateTime dateOfCreated;
 
     public boolean isAdmin() {
         return roles.contains(Role.ROLE_ADMIN);
+    }
+
+    public void deleteReservation() {
+        reservation = null;
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservation.setUser(this);
+        this.reservation = reservation;
     }
 
     @PrePersist

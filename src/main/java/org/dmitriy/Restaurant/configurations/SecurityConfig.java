@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,13 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST, "/product/create").permitAll()  // отдельное разрешение, надо будет убрать
-                        .requestMatchers("/", "/admin/**", "/images/**", "/registration", "/product/delete/**", "/product/edit/**") // страницы на которые можнозайти без регистрации
+                        .requestMatchers("/", "/admin", "/images/**", "/registration", "/admin/make/**") // страницы на которые можнозайти без регистрации
                         .permitAll().anyRequest().authenticated() ) .
                 formLogin((form) -> form
                         .loginPage("/login")

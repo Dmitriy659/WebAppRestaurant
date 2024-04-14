@@ -33,6 +33,10 @@ public class User implements UserDetails {
 
     private LocalDateTime dateOfCreated;
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ROLE_ADMIN);
+    }
+
     @PrePersist
     private void Init() {
         dateOfCreated = LocalDateTime.now();

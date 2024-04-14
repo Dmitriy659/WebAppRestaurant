@@ -63,14 +63,47 @@
                         <option value="Салаты" th:selected="${el.category == 'Салаты'}">Салаты</option>
                         <option value="Десерты" th:selected="${el.category == 'Десерты'}">Десерты</option>
                     </select><br><br>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input type="submit" value="Изменить товар">
                 </form>
                 <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                     <input type="submit" value="Удалить товар">
                 </form>
                 <hr>
             </div>
         </div>
     </div>
+    <h2>все пользователи</h2>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Номер телефона</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Админ</th>
+            <th>Редактирование</th>
+            <th>Удаление</th>
+        </tr>
+        <tr th:each="el: ${users}">
+            <th th:text="${el.getEmail()}"></th>
+            <th th:text="${el.getPhoneNumber()}"></th>
+            <th th:text="${el.getName()}"></th>
+            <th th:text="${el.getSurName()}"></th>
+            <th th:text="${el.isAdmin()}"></th>
+            <th>
+                <form th:action="@{/admin/make/{id}/{password}(id=${el.getId()}, password=${pass})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Изменить админа"/>
+                </form>
+            </th>
+            <th>
+                <form th:action="@{/admin/delete/{id}(id=${el.getId()})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Удалить"/>
+                </form>
+            </th>
+        </tr>
+    </table>
 </body>
 </html>

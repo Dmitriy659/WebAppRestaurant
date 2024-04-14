@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -33,5 +34,29 @@ public class UserService {
             return null;
         }
         return userRepository.findByEmail(principal.getName());
+    }
+
+    public List<User> allUsers() {
+        return userRepository.findAll();
+    }
+
+    public void make(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            if (user.isAdmin()) {
+                user.getRoles().remove(Role.ROLE_ADMIN);
+            }
+            else {
+                user.getRoles().add(Role.ROLE_ADMIN);
+            }
+            userRepository.save(user);
+        }
+    }
+
+    public void delete(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            userRepository.deleteById(id);
+        }
     }
 }

@@ -38,24 +38,6 @@ public class MainController {
         return "main_page";
     }
 
-    @PostMapping("/product/create")
-    public String createProduct(@RequestParam(required = false) MultipartFile file, Product product) throws IOException {
-        productService.saveProduct(product, file);
-        return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
-    }
-
-    @PostMapping("/product/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
-    }
-
-    @PostMapping("/product/edit/{id}")
-    public String editProduct(@PathVariable Long id, @RequestParam MultipartFile file, Product product) throws IOException {
-        productService.updateProduct(id, file, product);
-        return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
-    }
-
     @GetMapping("/profile/{id}")
     public String getProfile(@PathVariable Long id, Model model, Principal principal) {
         User user = userService.getUserByPrincipal(principal);
@@ -63,21 +45,31 @@ public class MainController {
             model.addAttribute("user", user);
             return "profile";
         }
-        model.addAttribute("products", productService.allProducts("Все"));
-        model.addAttribute("user", userService.getUserByPrincipal(principal));
-        return "main_page";
+        return "error";  // возврат несуществующей страницы
     }
 
-//    http://localhost:8080/admin?login=admin&password=admin
+    //    http://localhost:8080/admin?login=admin&password=admin
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
                         Model model) {
         if (login != null && password != null) {
             if (login.equals(admin_login) && password.equals(admin_password)) {
                 model.addAttribute("products", productService.allProducts("Все"));
+                model.addAttribute("users", userService.allUsers());
+                model.addAttribute("pass", admin_password);
                 return "admin_page";
             }
         }
         return "error"; // возврат несуществующей страницы
     }
+
+    // сделать админом
+    @PostMapping("/admin/make/{id}/{password}")
+    private String make_admin(@PathVariable Long id, @PathVariable String password) {
+        if (password != null && password.equals(admin_password)) {
+            userService.make(id);
+        }
+        return "redirect:/admin?login=" + admin_login + "&password=" + admin_password;
+    }
+
 }

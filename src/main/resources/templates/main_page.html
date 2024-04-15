@@ -20,7 +20,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 200px;
+            width: 280px;
+            height: 280px;
         }
         .dish p {
             margin: 4px 0;
@@ -91,15 +92,13 @@
             <div th:each="el: ${products}" >
                 <div class="dish">
                     <th:block th:if="${el.getImage() != null}">
-                        <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="160px" width="160px"/>
+                        <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="160px" width="200px"/>
                     </th:block>
-                    <p><b th:text="${el.getName()}"></b></p>
-                    <p th:text="${el.getPrice()} + ' руб'"></p>
+                    <p><b th:text="${el.getName()} + '  ' + ${el.getPrice()} + ' руб'"></b></p>
                     <p th:text="${el.getDescription()}"></p>
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 </html>

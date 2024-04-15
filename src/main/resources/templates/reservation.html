@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Забронировать стол</title>
+    <style>
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content_form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <form action="/reserve_stage2" method="get">
-        <select name="tableId">
-            <option value="1" selected>Стол 1</option>
-            <option value="2">Стол 2</option>
-            <option value="3">Стол 3</option>
-            <option value="4">Стол 4</option>
-            <option value="5">Стол 5</option>
-            <option value="6">Стол 6</option>
-            <option value="7">Стол 7</option>
-            <option value="8">Стол 8</option>
-            <option value="9">Стол 9</option>
-            <option value="10">Стол 10</option>
-        </select>
-        <br><br>
-        <input type="submit" value="Далее">
-    </form>
-    <a th:href="@{/profile/{id}(id=${user.getId()})}">Назад</a>
+    <h1 style="text-align: center">Выбор стола</h1><hr>
+    <div class="content">
+        <form class="content_form" action="/reserve_stage2" method="get">
+            <select name="tableId">
+                <option value="1" selected>Стол 1</option>
+                <option value="2">Стол 2</option>
+                <option value="3">Стол 3</option>
+                <option value="4">Стол 4</option>
+                <option value="5">Стол 5</option>
+                <option value="6">Стол 6</option>
+                <option value="7">Стол 7</option>
+                <option value="8">Стол 8</option>
+                <option value="9">Стол 9</option>
+                <option value="10">Стол 10</option>
+            </select>
+            <br>
+            <input type="submit" value="Далее">
+        </form>
+        <h2>Все столы ресторана</h2>
+        <img src="scheme.jpg" alt="схема ресторана" height="300" width="350">
+        <p><a th:href="@{/profile/{id}(id=${user.getId()})}">Назад</a></p>
+    </div>
 </body>
 </html>

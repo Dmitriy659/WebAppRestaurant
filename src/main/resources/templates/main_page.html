@@ -3,21 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Ресторан</title>
+    <style>
+        body { margin: 0}
+        .dishes {
+            margin: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .dish {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5%;
+            border: solid 1px black;
+            background-color: #D9D9D9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+        }
+        .dish p {
+            margin: 4px 0;
+        }
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: #303030;
+        }
+        .top h1 {
+            margin: 0;
+            color: white;
+        }
+        .top form, .top a {
+            margin-left: 20px;
+            color: white;
+        }
+        h2 {text-align: center}
+        .menu {margin: 0 auto}
+        .inner_top {
+            display: flex;
+        }
+        .des {
+            margin: 10px 10px;
+            text-indent: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ресторан высшего уровня</h1>
-    <hr>
-    <form th:action="@{/profile/{id}(id=${user.getId()})}" method="get" th:if="${user != null}">
-        <input type="submit" value="Профиль">
-    </form>
-    <a th:href="@{/login}" th:text="Войти" th:if="${user == null}"/>
-    <form th:action="@{/logout}" th:method="post" th:if="${user != null}">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        <input type="submit" value="Выйти"/>
-    </form>
+    <div class="top">
+        <h1>Ресторан</h1>
+        <div class="inner_top">
+            <form th:action="@{/profile/{id}(id=${user.getId()})}" method="get" th:if="${user != null}">
+                <input type="submit" value="Профиль">
+            </form>
+            <a th:href="@{/login}" th:text="Войти" th:if="${user == null}"/>
+            <form th:action="@{/logout}" th:method="post" th:if="${user != null}">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input type="submit" value="Выйти"/>
+            </form>
+        </div>
+    </div>
+    <p class="des">Добро пожаловать в наш ресторан высшего уровня, где каждый блюдо — это не просто гастрономический опыт, а настоящее путешествие в мир изысканных вкусов и неповторимых ощущений.
+        Мы приглашаем вас окунуться в атмосферу уюта и роскоши, где каждая деталь заботливо продумана, чтобы ваше посещение стало незабываемым событием.</p>
+    <p class="des">Мы работаем ежедневно с 9 до 23. Вы можете забронировать столик, позвонив по номеру  8(495)901-03-36, или в профиле.</p>
+
     <h2>Наше меню</h2>
     <div>
-        <form action="/" method="get">
+        <form action="/" method="get" class="menu">
             <label for="category">Категория</label>
             <select name="category" id="category">
                 <option value="Все" selected>Все блюда</option>
@@ -30,19 +84,22 @@
                 <input type="submit" value="выбрать">
             </select><br>
         </form>
-        <div th:if="${products.empty}">
-            <p>Блюд нет</p>
-        </div>
-        <div th:each="el: ${products}" >
-            <div>
-                <th:block th:if="${el.getImage() != null}">
-                    <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="200px" width="200px"/>
-                </th:block>
-                <p><b th:text="${el.getName()}"></b></p>
-                <p th:text="${el.getPrice()} + ' руб'"></p>
-                <p th:text="${el.getDescription()}"></p>
+        <div class="dishes">
+            <div th:if="${products.empty}">
+                <p>Блюд нет</p>
+            </div>
+            <div th:each="el: ${products}" >
+                <div class="dish">
+                    <th:block th:if="${el.getImage() != null}">
+                        <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="160px" width="160px"/>
+                    </th:block>
+                    <p><b th:text="${el.getName()}"></b></p>
+                    <p th:text="${el.getPrice()} + ' руб'"></p>
+                    <p th:text="${el.getDescription()}"></p>
+                </div>
             </div>
         </div>
+
     </div>
 </body>
 </html>

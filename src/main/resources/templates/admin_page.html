@@ -35,43 +35,40 @@
     </form>
 
     <h2>Посмотрите на наши прекрасные блюда</h2>
-    <div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly">
         <div th:if="${products.empty}">
             <p>Блюд нет</p>
         </div>
-        <div th:each="el: ${products}" >
-            <div>
-                <form th:action="@{/product/edit/{id}(id=${el.getId()})}" method="post" enctype="multipart/form-data">
-                    <label for="name1" >Название товара</label>
-                    <input type="text" name="name" id="name1" th:value="${el.getName()}"><br><br>
+        <div style="border: solid 1px black; margin: 0 2px; padding: 4px" th:each="el: ${products}" >
+            <form th:action="@{/product/edit/{id}(id=${el.getId()})}" method="post" enctype="multipart/form-data">
+                <label for="name1" >Название товара</label>
+                <input type="text" name="name" id="name1" th:value="${el.getName()}"><br><br>
 
-                    <label for="file1" >Картинка</label>
-                    <input type="file" name="file" id="file1"><br><br>
+                <label for="file1" >Картинка</label>
+                <input type="file" name="file" id="file1"><br><br>
 
-                    <label for="desc1" >Описание товара</label>
-                    <input type="text" name="description" id="desc1" th:value="${el.getDescription()}"><br><br>
+                <label for="desc1" >Описание товара</label>
+                <input type="text" name="description" id="desc1" th:value="${el.getDescription()}"><br><br>
 
-                    <label for="price1" >Цена товара</label>
-                    <input type="number" name="price" id="price1" th:value="${el.getPrice()}"><br><br>
+                <label for="price1" >Цена товара</label>
+                <input type="number" name="price" id="price1" th:value="${el.getPrice()}"><br><br>
 
-                    <label for="category1">Категория</label>
-                    <select name="category" id="category1">
-                        <option value="Напитки" th:selected="${el.category == 'Напитки'}">Напитки</option>
-                        <option value="Завтраки" th:selected="${el.category == 'Завтраки'}">Завтраки</option>
-                        <option value="Супы" th:selected="${el.category == 'Супы'}">Супы</option>
-                        <option value="Горячие блюда" th:selected="${el.category == 'Горячие блюда'}">Горячие блюда</option>
-                        <option value="Салаты" th:selected="${el.category == 'Салаты'}">Салаты</option>
-                        <option value="Десерты" th:selected="${el.category == 'Десерты'}">Десерты</option>
-                    </select><br><br>
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <input type="submit" value="Изменить товар">
-                </form>
-                <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <input type="submit" value="Удалить товар">
-                </form>
-                <hr>
-            </div>
+                <label for="category1">Категория</label>
+                <select name="category" id="category1">
+                    <option value="Напитки" th:selected="${el.category == 'Напитки'}">Напитки</option>
+                    <option value="Завтраки" th:selected="${el.category == 'Завтраки'}">Завтраки</option>
+                    <option value="Супы" th:selected="${el.category == 'Супы'}">Супы</option>
+                    <option value="Горячие блюда" th:selected="${el.category == 'Горячие блюда'}">Горячие блюда</option>
+                    <option value="Салаты" th:selected="${el.category == 'Салаты'}">Салаты</option>
+                    <option value="Десерты" th:selected="${el.category == 'Десерты'}">Десерты</option>
+                </select><br><br>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input type="submit" value="Изменить товар">
+            </form>
+            <form th:action="@{/product/delete/{id}(id=${el.getId()})}" method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input type="submit" value="Удалить товар">
+            </form>
         </div>
     </div>
     <h2>Все брони</h2>
@@ -101,7 +98,7 @@
         </tr>
     </table>
     <hr>
-    <h2>все пользователи</h2>
+    <h2>Все пользователи</h2>
     <table>
         <tr>
             <th>Email</th>

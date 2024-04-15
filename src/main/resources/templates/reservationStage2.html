@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content_form {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <form th:action="@{/reserve}" method="post">
-        <label for="tableId">Вы выбрали стол под номером</label>
-        <input type="number" name="tableId" id="tableId" th:value="${tableId}" readonly><br>
+    <h1 style="text-align: center">Забронировать место</h1><hr>
+    <div class="content">
+        <form class="content_form" th:action="@{/reserve}" method="post">
+            <label for="tableId">Вы выбрали стол под номером</label>
+            <input type="number" name="tableId" id="tableId" th:value="${tableId}" readonly><br>
 
-        <label for="date">Выберите дату и время</label>
-        <select name="date" id="date">
-            <option th:each="el : ${freetime}" th:value="${el}" th:text="${el}"></option>
-        </select>
-        <input type="submit" value="Забронировать">
-    </form>
-    <a th:href="@{/reserve}">Назад</a>
+            <label for="date">Выберите дату и время</label>
+            <select name="date" id="date">
+                <option th:each="el : ${freetime}" th:value="${el}" th:text="${el}"></option>
+            </select><br>
+            <input type="submit" value="Забронировать">
+        </form>
+        <a th:href="@{/reserve}">Назад</a>
+    </div>
 </body>
 </html>

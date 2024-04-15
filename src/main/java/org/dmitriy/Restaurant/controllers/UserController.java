@@ -6,7 +6,6 @@ import org.dmitriy.Restaurant.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,5 +36,12 @@ public class UserController {
             return "redirect:/registration?email=" + user.getEmail();
         }
         return "redirect:/login";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(User updateUser, Principal principal) {
+        User user = userService.getUserByPrincipal(principal);
+        userService.updateUser(user, updateUser);
+        return "redirect:/profile/" + user.getId();
     }
 }

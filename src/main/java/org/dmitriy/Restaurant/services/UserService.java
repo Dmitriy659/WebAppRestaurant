@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.dmitriy.Restaurant.models.User;
 import org.dmitriy.Restaurant.models.enums.Role;
 import org.dmitriy.Restaurant.repositories.UserRepository;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +27,24 @@ public class UserService {
         userRepository.save(user);
         log.info("Saving new user with email: " + user.getEmail());
         return true;
+    }
+
+    public void updateUser(User user, User updateUser) {
+        if (updateUser != null && user != null) {
+            if (updateUser.getName() != null) {
+                user.setName(updateUser.getName());
+            }
+            if (updateUser.getSurName() != null) {
+                user.setSurName(updateUser.getSurName());
+            }
+            if (updateUser.getPhoneNumber() != null) {
+                user.setPhoneNumber(updateUser.getPhoneNumber());
+            }
+            if (updateUser.getPassword() != null) {
+                user.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+            }
+            userRepository.save(user);
+        }
     }
 
     public User getUserByPrincipal(Principal principal) {

@@ -1,7 +1,6 @@
 package org.dmitriy.Restaurant.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.dmitriy.Restaurant.models.Product;
 import org.dmitriy.Restaurant.models.User;
 import org.dmitriy.Restaurant.services.ProductService;
 import org.dmitriy.Restaurant.services.ReservationService;
@@ -13,14 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 // возвращает основыне страницы. Также добавляет и удаляет блюда
 @Controller

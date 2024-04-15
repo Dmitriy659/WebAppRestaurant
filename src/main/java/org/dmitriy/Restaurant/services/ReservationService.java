@@ -1,14 +1,11 @@
 package org.dmitriy.Restaurant.services;
 
-import jakarta.persistence.PrePersist;
 import lombok.RequiredArgsConstructor;
 import org.dmitriy.Restaurant.models.Reservation;
 import org.dmitriy.Restaurant.models.User;
 import org.dmitriy.Restaurant.repositories.ReservationRepository;
 import org.dmitriy.Restaurant.repositories.UserRepository;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,7 +25,7 @@ public class ReservationService {
 
     public void addReservation(Long userId, int tableId, LocalDateTime localDateTime) {
         User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
+        if (user != null && freeTime(tableId).contains(localDateTime)) {
             Reservation reservation = new Reservation();
             reservation.setTableId(tableId);
             reservation.setDateOfReserv(localDateTime);

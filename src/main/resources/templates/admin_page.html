@@ -74,6 +74,33 @@
             </div>
         </div>
     </div>
+    <h2>Все брони</h2>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Номер телефона</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Номер стола</th>
+            <th>Дата брони</th>
+            <th>Отмена</th>
+        </tr>
+        <tr th:each="el: ${reservs}">
+            <th th:text="${el.getUser().getEmail()}"></th>
+            <th th:text="${el.getUser().getPhoneNumber()}"></th>
+            <th th:text="${el.getUser().getName()}"></th>
+            <th th:text="${el.getUser().getSurName()}"></th>
+            <th th:text="${el.getTableId()}"></th>
+            <th th:text="${el.getDateOfReserv()}"></th>
+            <th>
+                <form th:action="@{/admin/deleteRes/{id}(id=${el.getUser().getId()})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Отменить"/>
+                </form>
+            </th>
+        </tr>
+    </table>
+    <hr>
     <h2>все пользователи</h2>
     <table>
         <tr>

@@ -59,45 +59,6 @@ public class MainController {
         return "error";  // возврат несуществующей страницы
     }
 
-    @GetMapping("/reserve")
-    public String reservse_stage1(Principal principal, Model model) {
-        User user = userService.getUserByPrincipal(principal);
-        model.addAttribute("user", user);
-        return "reservation";
-    }
-
-    @GetMapping("/reserve_stage2")
-    public String reservse_stage2(Principal principal, Model model, @RequestParam int tableId) {
-        User user = userService.getUserByPrincipal(principal);
-        model.addAttribute("user", user);
-
-        List<LocalDateTime> freetime = reservationService.freeTime(tableId);
-        List<String> freeTimeString = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        for (LocalDateTime i : freetime) {
-            freeTimeString.add(i.format(formatter));
-        }
-        model.addAttribute("freetime", freeTimeString);
-        System.out.println(freeTimeString);
-
-        model.addAttribute("tableId", tableId);
-        return "reservationStage2";
-    }
-
-    @PostMapping("/reserve")
-    public String reserveTable(Principal principal, @RequestParam int tableId, @RequestParam String date) {
-        User user = userService.getUserByPrincipal(principal);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        reservationService.addReservation(user.getId(), tableId, LocalDateTime.parse(date, formatter));
-        return "redirect:/profile/" + user.getId();
-    }
-
-    @PostMapping("/reserve/delete")
-    public String deleteReservation(Principal principal) {
-        User user = userService.getUserByPrincipal(principal);
-        reservationService.deleteReservation(user.getId());
-        return "redirect:/profile/" + user.getId();
-    }
 
     //    http://localhost:8080/admin?login=admin&password=admin
     @GetMapping("/admin")
@@ -108,6 +69,7 @@ public class MainController {
                 model.addAttribute("products", productService.allProducts("Все"));
                 model.addAttribute("users", userService.allUsers());
                 model.addAttribute("pass", admin_password);
+                model.addAttribute("reservs", reservationService.getAll());
                 return "admin_page";
             }
         }

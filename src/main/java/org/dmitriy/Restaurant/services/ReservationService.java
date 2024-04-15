@@ -22,6 +22,10 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
 
+    public List<Reservation> getAll() {
+        return reservationRepository.findAll();
+    }
+
     public void addReservation(Long userId, int tableId, LocalDateTime localDateTime) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {

@@ -54,7 +54,6 @@ public class MainController {
     }
 
 
-    //    http://localhost:8080/admin?login=admin&password=admin
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
                         Model model) {

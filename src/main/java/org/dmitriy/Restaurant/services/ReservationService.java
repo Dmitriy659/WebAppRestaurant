@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+    private ZoneId zoneId = ZoneId.of("Europe/Moscow");
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
 
@@ -25,7 +27,7 @@ public class ReservationService {
 
     public void addReservation(Long userId, int tableId, LocalDateTime localDateTime) {
         User user = userRepository.findById(userId).orElse(null);
-        if (user != null && freeTime(tableId).contains(localDateTime)) {
+        if (user != null && user.getReservation() == null && freeTime(tableId).contains(localDateTime)) {
             Reservation reservation = new Reservation();
             reservation.setTableId(tableId);
             reservation.setDateOfReserv(localDateTime);
@@ -44,7 +46,7 @@ public class ReservationService {
 
         List<LocalDateTime> freeTime = new ArrayList<>();
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
         LocalDateTime nextHour = currentDateTime.plusHours(1).withMinute(0).withSecond(0).withNano(0);
         while (nextHour.getHour() < 23) {
             if (!times.contains(nextHour)) {
@@ -53,7 +55,7 @@ public class ReservationService {
             nextHour = nextHour.plusHours(1);
         }
 
-        LocalDate nextDay = LocalDate.now().plusDays(1);
+        LocalDate nextDay = LocalDate.now(zoneId).plusDays(1);
         LocalDateTime nextDayStart = nextDay.atTime(10, 0);
         while (nextDayStart.getHour() < 23) {
             if (!times.contains(nextDayStart)) {
@@ -68,7 +70,6 @@ public class ReservationService {
     public void deleteReservation(Long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null && user.getReservation() != null) {
-            System.out.println("удаление");
             Reservation reservation = user.getReservation();
             user.setReservation(null);
             userRepository.save(user);
@@ -81,7 +82,7 @@ public class ReservationService {
         List<Reservation> all = reservationRepository.findAll();
         for (Reservation i: all) {
             Long userId = i.getUser().getId();
-            if (i.getDateOfReserv().isBefore(LocalDateTime.now())) {
+            if (i.getDateOfReserv().isBefore(LocalDateTime.now(zoneId))) {
                 deleteReservation(userId);
             }
         }

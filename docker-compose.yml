@@ -8,9 +8,9 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 1234as
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/rest
+      SPRING_DATASOURCE_USERNAME: ***
+      SPRING_DATASOURCE_PASSWORD: ***
+      SPRING_DATASOURCE_URL: ***
 
   db:
     image: postgres
@@ -19,4 +19,4 @@ services:
     environment:
       POSTGRES_USER: ***
       POSTGRES_PASSWORD: ***
-      POSTGRES_DB: rest
+      POSTGRES_DB: ***

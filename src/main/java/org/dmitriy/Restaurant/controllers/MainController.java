@@ -54,7 +54,7 @@ public class MainController {
         return "error";  // возврат несуществующей страницы
     }
 
-    //http://localhost:8080/admin?login=admin21&password=admin21
+    //http://localhost:8080/admin?login=***&password=***
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
                         Model model) {

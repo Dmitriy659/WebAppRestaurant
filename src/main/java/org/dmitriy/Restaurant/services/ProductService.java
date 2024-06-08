@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,7 +22,9 @@ public class ProductService {
 
     public List<Product> allProducts(String category) {
         if (!category.equals("Все")) {
-            return productRepository.findByCategory(category);
+            List<Product> temp = productRepository.findByCategory(category);
+            Collections.sort(temp);
+            return temp;
         }
         return productRepository.findAll();
     }

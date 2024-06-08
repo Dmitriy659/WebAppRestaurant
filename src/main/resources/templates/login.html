@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Логин</title>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <style>
         .content {
-            width: 290px;
-            margin: 0 auto;
-        }
-        h1 {text-align: center}
-        .content_form {
-            display: flex;
-            flex-direction: column;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Авторизация</h1><hr>
+    <div class="top">
+        <img src="/pictures/logo.png" width="80px" height="80px">
+        <h1 style="text-align: center">Авторизация</h1><hr>
+    </div>
     <div class="content">
         <form class="content_form" action="/login" method="post">
-            Эл. почта: <input type="email" name="username" required><br>
-            Пароль: <input type="password" name="password" required><br>
+            <label for="username">Эл. почта:</label>
+            <input type="email" name="username" id="username" required><br>
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" required><br>
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="Вход"/>
         </form>
-        <p style="text-align: center"><a href="/registration">Зарегистрироваться</a></p>
-        <p style="text-align: center"><a href="/">На главную</a></p>
+        <p class="p_style" style="text-align: center"><a class="a_style" href="/registration">Зарегистрироваться</a></p>
+        <p class="p_style p_glav" style="text-align: center"><a class="a_style" href="/">На главную</a></p>
     </div>
 </body>
 </html>

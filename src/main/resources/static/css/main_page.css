@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    background-image: url("../pictures/background_2 (1).png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat;
+}
+.dishes {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #303030;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+.intro {
+    background-image: url("../pictures/background.png");
+    background-size: cover;
+    background-position: center;
+    padding: 30px 20%;
+    text-align: center;
+    color: white;
+    font-size: 44px;
+}
+.top h1 {
+    color: white;
+    margin: 0 0 0 40px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.inner_top a,
+.inner_top input {
+    margin-left: 20px;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 6px;
+    border: solid white 4px;
+    background-color: #303030;
+    cursor: pointer;
+}
+.inner_top a {
+    text-align: center;
+}
+.inner_top {
+    display: flex;
+}
+h2 {
+    text-align: center;
+    font-size: 50px;
+    margin: 10px 0;
+}
+
+#choose {
+    margin-left: 20px;
+    font-size: 30px;
+}
+#choose select {
+    font-size: 20px;
+    margin-left: 20px;
+}
+#choose input {
+    font-size: 20px;
+    margin-left: 5px;
+    background-color: grey;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.menu {margin: 10px auto}
+
+.add_div {
+    width: 45%;
+}
+
+.dish {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    border-bottom: solid 1px black;
+    box-sizing: border-box;
+    height: 200px;
+}
+.dish_info {
+    width: 100%;
+    padding-left: 10px;
+}
+.dish p {
+    margin: 4px 0;
+    text-align: center;
+}
+.dish_title {
+    font-size: 24px;
+}
+.dish_desc {
+    font-size: 20px;
+}
+.dish_img {
+    width: 200px;
+    height: 160px;
+    align-self: center;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 40px;
+    margin-bottom: 40px;
+}
+
+.left {
+    grid-column: 1;
+}
+
+.right {
+    grid-column: 2;
+}
+
+.footer p {
+    font-family: 'Roboto', Arial, sans-serif;
+    text-align: center;
+    font-size: 26px;
+}
+
+.foot_name {
+    font-weight: bold;
+    margin: 16px 0 4px 0;
+    opacity: 1;
+}
+.foot_other {
+    opacity: 0.8;
+    margin: 0;
+}
+
+@media screen and (max-width: 1100px) {
+    .dish_img {
+        width: 180px;
+        height: 144px;
+    }
+    .dish {
+        height: 240px;
+    }
+}
+@media screen and (max-width: 500px) {
+    #intro {
+        font-size: 30px;
+    }
+}

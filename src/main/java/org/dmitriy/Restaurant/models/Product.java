@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product implements Comparable<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,4 +28,8 @@ public class Product {
         this.image = image;
     }
 
+    @Override
+    public int compareTo(Product o) {
+        return this.category.compareTo(o.category);
+    }
 }

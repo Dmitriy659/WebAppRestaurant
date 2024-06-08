@@ -3,31 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
-    <style>
-        .content {
-            display: flex;
-            flex-direction: column;
-            margin: 0 auto;
-            width: 400px;
-        }
-        .content_form {
-            display: flex;
-            flex-direction: column;
-            width: 400px;
-            height: 260px;
-            justify-content: space-around;
-        }
-        .booking {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link type="image/x-icon" href="/pictures/profile_fav.png" rel="shortcut icon">
+    <link type="image/x-icon" href="/pictures/profile_fav.png" rel="icon">
 </head>
 <body>
-    <h1 style="text-align: center">Профиль</h1><hr>
-    <p th:text="'Добро пожаловать, ' + ${user.getName()} + '. Здесь вы сможете забронировать стол, а также изменить свои данные.'"></p>
+    <div class="top">
+        <img src="/pictures/logo.png" width="80px" height="80px">
+        <h1 style="text-align: center">Профиль</h1><hr>
+    </div>
+
+    <p class="intro" th:text="'Добро пожаловать, ' + ${user.getName()} + '. Здесь вы сможете забронировать стол, а также изменить свои данные.'"></p>
+
     <div class="content">
         <form class="content_form" th:action="@{/updateUser}" method="post">
             <label for="mail">Ваш email</label>
@@ -46,16 +33,17 @@
             <input type="password" name="password" id="password">
 
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <input type="submit" value="изменить">
+            <input type="submit" value="Изменить">
         </form>
     </div>
-    <p style="text-align: center"><a th:href="@{/}">На главную</a></p>
-    <p th:if="${user.getReservation() == null}" style="text-align: center"><a th:href="@{/reserve}">Забронировать стол</a></p>
+
+    <p class="p_style p_glav" style="text-align: center"><a class="a_style" th:href="@{/}">На главную</a></p>
+    <p class="p_style" th:if="${user.getReservation() == null}" style="text-align: center"><a class="a_style" th:href="@{/reserve}">Забронировать стол</a></p>
     <div class="booking" th:if="${user.getReservation() != null}">
         <p th:text="'Вы забронировали стол с номером ' + ${user.getReservation().getTableId()} +
          ' на дату ' + ${date}"></p>
         <form th:action="@{/reserve/delete}" method="post">
-            <input type="submit" value="отменить бронь">
+            <input type="submit" value="Отменить бронь">
         </form>
     </div>
 </body>

@@ -33,6 +33,7 @@ public class MainController {
     @GetMapping("/")
     public String products(@RequestParam(required = false, defaultValue = "Все") String category,
                            Model model, Principal principal) {
+        model.addAttribute("categ", category);
         model.addAttribute("products", productService.allProducts(category));
         model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "main_page";
@@ -53,7 +54,7 @@ public class MainController {
         return "error";  // возврат несуществующей страницы
     }
 
-
+    //http://localhost:8080/admin?login=admin21&password=admin21
     @GetMapping("/admin")
     public String admin(@RequestParam(required = false) String login, @RequestParam(required = false) String password,
                         Model model) {

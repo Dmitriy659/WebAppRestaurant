@@ -2,21 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .content_form {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    <title>Забронировать место</title>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/reserv.css">
 </head>
 <body>
-    <h1 style="text-align: center">Забронировать место</h1><hr>
+    <div class="top">
+        <img src="/pictures/logo.png" width="80px" height="80px">
+        <h1 style="text-align: center">Забронировать место</h1><hr>
+    </div>
     <div class="content">
         <form class="content_form" th:action="@{/reserve}" method="post">
             <label for="tableId">Вы выбрали стол под номером</label>
@@ -28,7 +22,7 @@
             </select><br>
             <input type="submit" value="Забронировать">
         </form>
-        <a th:href="@{/reserve}">Назад</a>
+        <p class="p_style p_glav"><a class="a_style" th:href="@{/reserve}">Назад</a></p>
     </div>
 </body>
 </html>

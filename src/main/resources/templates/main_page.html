@@ -2,59 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width">-->
     <title>Ресторан</title>
-    <style>
-        body { margin: 0}
-        .dishes {
-            margin: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-        .dish {
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5%;
-            border: solid 1px black;
-            background-color: #D9D9D9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 280px;
-            height: 280px;
-        }
-        .dish p {
-            margin: 4px 0;
-        }
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 20px;
-            background-color: #303030;
-        }
-        .top h1 {
-            margin: 0;
-            color: white;
-        }
-        .top form, .top a {
-            margin-left: 20px;
-            color: white;
-        }
-        h2 {text-align: center}
-        .menu {margin: 0 auto}
-        .inner_top {
-            display: flex;
-        }
-        .des {
-            margin: 10px 10px;
-            text-indent: 20px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/main_page.css">
+    <link type="image/x-icon" href="/pictures/main_fav.png" rel="shortcut icon">
+    <link type="image/x-icon" href="/pictures/main_fav.png" rel="icon">
 </head>
 <body>
     <div class="top">
-        <h1>Ресторан</h1>
+        <div class="logo">
+            <img src="/pictures/logo.png" width="80px" height="80px">
+            <h1>Ресторан</h1>
+        </div>
         <div class="inner_top">
             <form th:action="@{/profile/{id}(id=${user.getId()})}" method="get" th:if="${user != null}">
                 <input type="submit" value="Профиль">
@@ -66,39 +25,61 @@
             </form>
         </div>
     </div>
-    <p class="des">Добро пожаловать в наш ресторан высшего уровня, где каждый блюдо — это не просто гастрономический опыт, а настоящее путешествие в мир изысканных вкусов и неповторимых ощущений.
-        Мы приглашаем вас окунуться в атмосферу уюта и роскоши, где каждая деталь заботливо продумана, чтобы ваше посещение стало незабываемым событием.</p>
-    <p class="des">Мы работаем ежедневно с 9 до 23. Вы можете забронировать столик, позвонив по номеру  8(495)901-03-36, или в профиле.</p>
+
+    <div class="intro" id="intro">
+        Добро пожаловать в наш ресторан высшего уровня, где каждое блюдо — это не просто гастрономический опыт, а настоящее путешествие в мир изысканных вкусов и неповторимых ощущений.
+            Мы приглашаем вас окунуться в атмосферу уюта и роскоши, где каждая деталь заботливо продумана, чтобы ваше посещение стало незабываемым событием. <br><br>
+        Мы работаем ежедневно с 9 до 23. Вы можете забронировать столик, позвонив по номеру  8(495)901-03-36, или в профиле.
+    </div>
 
     <h2>Наше меню</h2>
-    <div>
-        <form action="/" method="get" class="menu">
+    <div id="choose_div">
+        <form action="/" method="get" class="menu" id="choose">
             <label for="category">Категория</label>
             <select name="category" id="category">
-                <option value="Все" selected>Все блюда</option>
-                <option value="Напитки">Напитки</option>
-                <option value="Завтраки">Завтраки</option>
-                <option value="Супы">Супы</option>
-                <option value="Горячие блюда">Горячие блюда</option>
-                <option value="Салаты">Салаты</option>
-                <option value="Десерты">Десерты</option>
-                <input type="submit" value="выбрать">
+                <option th:selected="${categ == 'Все'}" value="Все">Все блюда</option>
+                <option th:selected="${categ == 'Напитки'}" value="Напитки">Напитки</option>
+                <option th:selected="${categ == 'Завтраки'}" value="Завтраки">Завтраки</option>
+                <option th:selected="${categ == 'Супы'}" value="Супы">Супы</option>
+                <option th:selected="${categ == 'Горячие блюда'}" value="Горячие блюда">Горячие блюда</option>
+                <option th:selected="${categ == 'Салаты'}" value="Салаты">Салаты</option>
+                <option th:selected="${categ == 'Десерты'}" value="Десерты">Десерты</option>
+                <input type="submit" value="Выбрать">
             </select><br>
         </form>
+
         <div class="dishes">
             <div th:if="${products.empty}">
                 <p>Блюд нет</p>
             </div>
-            <div th:each="el: ${products}" >
+            <div th:each="el: ${products}" class="add_div" >
                 <div class="dish">
                     <th:block th:if="${el.getImage() != null}">
-                        <img th:src="@{/images/{id}(id=${el.getImage().getId()})}"  alt="здесь картинка" height="160px" width="200px"/>
+                        <img class="dish_img" th:src="@{/images/{id}(id=${el.getImage().getId()})}" alt="здесь картинка"/>
                     </th:block>
-                    <p><b th:text="${el.getName()} + '  ' + ${el.getPrice()} + ' руб'"></b></p>
-                    <p th:text="${el.getDescription()}"></p>
+                    <div class="dish_info">
+                        <p class="dish_title"><b th:text="${el.getName()} + '  ' + ${el.getPrice()} + ' руб'"></b></p>
+                        <p class="dish_desc" th:text="${el.getDescription()}"></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <h2>Контакты</h2>
+    <div class="footer">
+        <div class="left">
+            <p class="foot_name">Номер телефона:</p>
+            <p class="foot_other">8(495)901-03-36</p>
+            <p class="foot_name">Время работы</p>
+            <p class="foot_other">Ежедневно с 9:00 до 23:00</p>
+        </div>
+        <div class="right">
+            <p class="foot_name">Наш адрес:</p>
+            <p class="foot_other">улица Тверская, 18</p>
+            <p class="foot_name">Выполнил Носов Дмитрий Вадимович ИКБО-20-22</p>
+        </div>
+    </div>
+
 </body>
 </html>

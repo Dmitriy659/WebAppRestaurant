@@ -3,24 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Забронировать стол</title>
-    <style>
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .content_form {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/reserv.css">
 </head>
 <body>
-    <h1 style="text-align: center">Выбор стола</h1><hr>
+    <div class="top">
+        <img src="/pictures/logo.png" width="80px" height="80px">
+        <h1 style="text-align: center">Выбор стола</h1><hr>
+    </div>
     <div class="content">
         <form class="content_form" action="/reserve_stage2" method="get">
-            <select name="tableId">
+            <label for="tableId">Выбреите номер стола</label>
+            <select name="tableId" id="tableId">
                 <option value="1" selected>Стол 1</option>
                 <option value="2">Стол 2</option>
                 <option value="3">Стол 3</option>
@@ -35,9 +29,11 @@
             <br>
             <input type="submit" value="Далее">
         </form>
-        <h2>Все столы ресторана</h2>
-        <img src="scheme.jpg" alt="схема ресторана" height="300" width="350">
-        <p><a th:href="@{/profile/{id}(id=${user.getId()})}">Назад</a></p>
     </div>
+    <h2>Все столы ресторана</h2>
+    <div class="img_div">
+        <img src="/pictures/scheme.jpg" th:src="@{/pictures/scheme.jpg}" alt="схема ресторана" width="470">
+    </div>
+    <p class="p_style p_glav"><a class="a_style" th:href="@{/profile/{id}(id=${user.getId()})}">Назад</a></p>
 </body>
 </html>

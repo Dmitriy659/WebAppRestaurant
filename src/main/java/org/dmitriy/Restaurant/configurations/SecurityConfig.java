@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 // тут ничего не менять кроме ссылок
 @Configuration
@@ -22,11 +23,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/admin", "/images/**", "/registration", "/admin/make/**") // страницы на которые можнозайти без регистрации
+                        .requestMatchers("/", "/admin", "/images/**", "/registration", "/admin/make/**", "/static/**", "/css/**", "/pictures/**") // страницы на которые можнозайти без регистрации
                         .permitAll().anyRequest().authenticated() ) .
                 formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/") // Указываем URL для перенаправления после успешной аутентификации
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
@@ -41,4 +42,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
     }
+
 }

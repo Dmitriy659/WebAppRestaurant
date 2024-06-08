@@ -2,27 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <style>
         .content {
-            width: 400px;
-            margin: 0 auto;
-        }
-        .content_form {
-            display: flex;
-            flex-direction: column;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center">Регистрация</h1><hr>
+    <div class="top">
+        <img src="/pictures/logo.png" width="80px" height="80px">
+        <h1 style="text-align: center">Профиль</h1><hr>
+    </div>
     <div class="content">
         <form class="content_form" action="/registration" method="post">
-            Имя пользователя: <input type="text" name="name" required><br>
-            Фамилия пользователя: <input type="text" name="surName" required><br>
-            Эл. почта: <input type="email" name="email" required><br>
-            Номер телефона: <input type="tel" name="phoneNumber" required><br>
-            Пароль: <input type="password" name="password" required><br>
+            <label for="name">Имя пользователя:</label>
+            <input type="text" name="name" id="name" required><br>
+            <label for="surName">Фамилия пользователя:</label>
+            <input type="text" name="surName" id="surName" required><br>
+            <label for="email">Эл. почта:</label>
+            <input type="email" name="email" id="email" required><br>
+            <label for="phoneNumber">Номер телнфона:</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" required><br>
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" required><br>
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <input type="submit" value="Зарегистрироваться"/>
         </form>
